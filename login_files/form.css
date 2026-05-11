@@ -1,0 +1,168 @@
+::selection{
+  color: #fff;
+  background: #020B3B;
+}
+.containe{
+  width: 390px;
+  background: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 50px 35px 10px 35px;
+}
+.containe header{
+  font-size: 35px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+}
+.containe .form-outer{
+  width: 100%;
+  overflow: hidden;
+}
+.containe .form-outer form{
+  display: flex;
+  width: 400%;
+}
+.form-outer form .page{
+  width: 25%;
+  transition: margin-left 0.3s ease-in-out;
+}
+.form-outer form .page .title{
+  text-align: left;
+  font-size: 25px;
+  font-weight: 500;
+}
+.form-outer form .page .fie{
+  width: 330px;
+  height: 45px;
+  margin: 45px 0;
+  display: flex;
+  position: relative;
+}
+form .page .fie .label{
+  position: absolute;
+  top: -30px;
+  font-weight: 500;
+}
+form .page .fie input{
+  height: 100%;
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding-left: 15px;
+  font-size: 18px;
+}
+form .page .fie select{
+  width: 100%;
+  padding-left: 10px;
+  font-size: 17px;
+  font-weight: 500;
+}
+form .page .fie button{
+  width: 100%;
+  height: calc(100% + 5px);
+  border: none;
+  background: #020B3B;
+  margin-top: -20px;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: 0.5s ease;
+}
+form .page .fie button:hover{
+  background: #000;
+}
+form .page .btns button{
+  margin-top: -20px!important;
+}
+form .page .btns button.prev{
+  margin-right: 3px;
+  font-size: 17px;
+}
+form .page .btns button.next{
+  margin-left: 3px;
+}
+.containe .pro{
+  display: flex;
+  margin: 40px 0;
+  user-select: none;
+}
+.containe .pro .ste{
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+.containe .pro .ste p{
+  font-weight: 500;
+  font-size: 18px;
+  color: #000;
+  margin-bottom: 8px;
+}
+.pro .ste .bullet{
+  height: 25px;
+  width: 25px;
+  border: 2px solid #000;
+  display: inline-block;
+  border-radius: 50%;
+  position: relative;
+  transition: 0.2s;
+  font-weight: 500;
+  font-size: 17px;
+  /* line-height: 25px; */
+}
+.pro .ste .bullet.active{
+  border-color: #020B3B;
+  background: #020B3B;
+}
+.pro .ste .bullet span{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.pro .ste .bullet.active span{
+  display: none;
+}
+.pro .ste .bullet:before,
+.pro .ste .bullet:after{
+  position: absolute;
+  content: '';
+  bottom: 11px;
+  right: -51px;
+  height: 3px;
+  width: 44px;
+  background: #262626;
+}
+.pro .ste .bullet.active:after{
+  background: #020B3B;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: animate 0.3s linear forwards;
+}
+@keyframes animate {
+  100%{
+    transform: scaleX(1);
+  }
+}
+.pro .ste:last-child .bullet:before,
+.pro .ste:last-child .bullet:after{
+  display: none;
+}
+.pro .ste p.active{
+  color: #020B3B;
+  transition: 0.2s linear;
+}
+.pro .ste .check{
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  font-size: 15px;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.pro .ste .check.active{
+  display: block;
+  color: #fff;
+}

@@ -1,0 +1,337 @@
+.buscador {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    box-sizing: border-box;
+    width: 300px;
+    display: inline-block;
+    margin: 10px;
+    border-radius: 15px;
+    border: 2px solid #fff;
+    position: fixed;
+    right: 0;
+    z-index: 100;
+}
+
+.grisNeutro{
+    background-color: #747475 !important;
+    color: white !important;
+}
+
+.grisUno{
+    background-color: #464B50 !important;
+    color: white !important;
+}
+
+.wpdreams_asl_container {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    box-sizing: content-box;
+    padding: 0;
+    text-transform: none;
+    text-shadow: none;
+    text-decoration: none;
+    text-align: left;
+    letter-spacing: normal;
+    position: relative;
+    z-index: 200;
+    height: auto;
+    background: #d1eaff;
+    background-image: radial-gradient(ellipse at center, #e1635c, #e1635c);
+    overflow: hidden;
+    border: 0 none #8dd5ef;
+    box-shadow: 0 0 0 0 #000;
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    border-radius: 15px;
+}
+
+.probox {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    box-sizing: content-box;
+    padding: 0;
+    text-transform: none;
+    text-shadow: none;
+    text-decoration: none;
+    text-align: left;
+    letter-spacing: normal;
+    width: auto;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    height: 34px;
+    background-color: #3c4557;
+    background-image: radial-gradient(ellipse at center, #303845, #303845);
+    border: 0 solid #68aec7;
+    border-radius: 0 0 0 0;
+    box-shadow: 0 0 0 0 #b5b5b5 inset;
+}
+
+.promagnifier {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    box-sizing: content-box;
+    text-transform: none;
+    text-shadow: none;
+    text-decoration: none;
+    letter-spacing: normal;
+    background: none;
+    float: right;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    -webkit-flex: 0 0 auto;
+    z-index: 100;
+    -webkit-order: 10;
+    width: 34px;
+    height: 34px;
+    background-color: #303845;
+    background-image: linear-gradient(180deg, #303845, #303845);
+    border: 0 solid #000;
+    border-radius: 0 0 0 0;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, .61);
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.proinput {
+    box-sizing: content-box;
+    border: 0;
+    border-radius: 0;
+    text-transform: none;
+    text-decoration: none;
+    text-align: left;
+    letter-spacing: normal;
+    width: auto;
+    height: 100%;
+    margin: 0 0 0 10px;
+    padding: 0 5px;
+    float: left;
+    box-shadow: none;
+    position: relative;
+    -webkit-flex: 1 1 auto;
+    -webkit-order: 5;
+    font-weight: normal;
+    font-family: Open Sans;
+    color: #fff !important;
+    font-size: 12px;
+    line-height: normal !important;
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+}
+
+.orig:focus {
+    outline: none !important;
+}
+
+.orig {
+    overflow: visible;
+    outline-offset: -2px;
+    box-sizing: content-box;
+    border-radius: 0;
+    text-transform: none;
+    text-decoration: none;
+    text-align: left;
+    letter-spacing: normal;
+    -webkit-appearance: textfield !important;
+    width: 100%;
+    left: 0;
+    display: block;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    z-index: 10;
+    position: relative;
+    font-weight: normal;
+    line-height: normal !important;
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    height: 34px;
+    font-size: 16px;
+    font-family: "MuseoSans-500";
+    color: #fff !important;
+}
+
+#inputBuscar::placeholder {
+    color: white !important;
+    opacity: 1; /* Firefox */
+}
+
+#inputBuscar:-ms-input-placeholder { /* Internet Explorer 10-11 */
+color: white !important;
+}
+
+#inputBuscar::-ms-input-placeholder { /* Microsoft Edge */
+color: white !important;
+}
+
+.navbar-search {
+    border-radius: 0 0 25px 25px;
+    margin-top: 58px;
+    vertical-align: center;
+    align-content: center;
+}
+
+.buscador-result {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: white;
+    background-color: #303845;
+    text-align: left;
+    box-sizing: border-box;
+    width: 300px;
+    margin: 10px;
+    margin-top: 50px;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    position: fixed;
+    right: 0;
+    z-index: 200;
+    max-height: 400px;
+}
+
+.item-result {
+    width: 100%;
+    vertical-align: center;
+    align-items: center;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+
+.item-result h4 {
+    color: white;
+    font-size: 12pt;
+}
+
+.item-result p {
+    color: white;
+    font-size: 8pt;
+}
+
+.item-result img {
+    height: 60px;
+}
+
+.animate {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+}
+
+
+.colorSea{
+    color: rgb(255, 255, 255) !important;
+    background-color: rgba(41, 54, 67,0.92) !important;
+}
+
+.imgBanner{
+    width: 80%;
+}
+
+.colorSeaText{
+    color: rgb(255, 255, 255) !important;
+}
+
+.form-label.required:after {
+    content: "*";
+    margin-left: .25rem;
+    color: #d63939;
+}
+
+.btn-outline-sea{
+    color: rgb(41, 54, 67) !important;
+    background-color: #f8f9fc!important;
+    border-color: rgba(41, 54, 67, 0.16) !important;
+
+}
+
+.btn-outline-sea:hover{
+    background-color: rgb(41, 54, 67) !important;
+    color: #f8f9fc!important;
+}
+
+.whiteSmoke{
+    background-color: whitesmoke !important;
+}
+
+.black{
+    color: #000;
+}
+
+.borderSea{
+    border-color: rgb(41, 54, 67) !important;
+    border-width: 2px !important;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+#map {
+    height: 500px;
+}
+
+
+.buttonNav {
+    cursor: pointer;
+}
+
+.buttonNav.card {
+    border-radius: 40px !important;
+}
+
+.buttonNav.card:hover{
+    transform: scale(1.05);
+}
+
+.scale-card:hover{
+    transform: scale(1.05);
+}
+
+/* body{
+    text-transform: uppercase !important;
+} */
+
+.no-upper {
+    text-transform: none !important;
+}

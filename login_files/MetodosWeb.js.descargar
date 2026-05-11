@@ -1,0 +1,251 @@
+var token = $('meta[name=_token]').attr('content');
+var urlBack = '';
+var Invalidclases = 'was-validated form-control:invalid was-validated is-invalid is-invalid';
+
+$('body').on('keyup', '.pass-word', function(){
+    var response = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&.,])([A-Za-z\d$@$!%*?&.,]|[^ ]){8,100}$/).test($(this).val());
+    console.log('validando clases');
+    if(response){
+        $('#error-pass').addClass('d-none');
+        $(this).removeClass(Invalidclases);
+    }else{
+        $('#error-pass').removeClass('d-none');
+        $(this).addClass(Invalidclases);
+    }
+});
+
+$('body').on('change', '.pdffile',function () {
+    let ext = $(this).val().split('.').pop();
+
+    if ($(this).val() != '') {
+        if (ext != 'pdf') {
+            $(this).val('');
+            ShowAlert('Error', 'Formato de documento invalido', 'error');
+        }
+    }
+});
+
+function LoadPage(url){
+    urlBack = url;
+    MakeRequestData(url, '#bodyContent', true);
+}
+
+
+function readURL(input, Name, inputId) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(Name).html($(inputId).val());
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function AlertConfirmacion(TextAlert){
+    return new Promise((resolve, reject) => {
+        let Titulo = $(TextAlert).html();
+
+        Swal.fire({
+            html: Titulo,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3c3845',
+            cancelButtonColor: '#c9a892',
+            cancelButtonText: 'Cancelar',
+            allowOutsideClick: false,
+            confirmButtonText: 'Aceptar',
+        }).then((result) =>{
+            resolve(result.isConfirmed);
+        });
+    });
+}
+
+function getDataRequest(IdForm, Datos){
+    if(IdForm != ''){
+        var Form = $(IdForm)[0];
+        return new FormData(Form);
+    }
+    let DataSend = { '_token': token };
+
+    for( var i = 0; i < Datos.length; i++){
+        let clave = Datos[i].split('/');
+        DataSend[clave[0]] = clave[1];
+    }
+    return DataSend;
+}
+
+
+function ValidarForm(form){
+
+    let newform = $(form)[0];
+
+    if (form && !newform.checkValidity()) {
+        newform.classList.add('was-validated');
+        var vacios = false;
+        $(form).find('.form-control:invalid').each(function () {
+            vacios = true;
+            return;
+        });
+        if(vacios){
+            ShowAlert('Error', 'Uno o mas campos se han ingresado incorrectamente', 'error', true);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function MakeRequestData(Url, ItemReplace, ShowLoad = false, ModalName = '', type = 'GET',
+    accion = 2, IdForm = '', ShowResult = false, closeModal= false, params = [],
+    metodo = SetDataResult){
+
+        if(params.length > 0 && params[0].includes('NeedAsk/#')){
+            let info = params[0].split('/');
+            params.shift();
+            AlertConfirmacion(info[1])
+            .then(response => {
+                if(response){
+                    MakeRequestData( Url, ItemReplace, ShowLoad, ModalName, type, accion,
+                        IdForm, ShowResult, closeModal, params, metodo);
+                }
+            });
+        }else{
+            if(IdForm.includes('##')){
+                IdForm = IdForm.replace('##', '#');
+            }else if(ValidarForm(IdForm)){ return; }
+
+            let DataSend = getDataRequest(IdForm, params);
+
+            if(ShowLoad) LoadingAlert();
+
+            let confi = {
+                type: type,
+                url: Url,
+                cache: false,
+                data: (type == 'POST' ? DataSend : null),
+                timeout: 800000,
+                async: true,
+                success: function(response) {
+                    if(ModalName != '') $(ModalName).modal('show');
+                    Swal.close();
+
+                    $('.selectpicker').selectpicker('refresh');
+                    if(ShowResult) ShowAlert('Exito', 'Solicitud enviada exitosamente.','success', true);
+
+                    if($(ModalName).is(':visible') && closeModal) $(ModalName).modal('hide');
+                    $('.select-picker').each(function(){
+                        if($(this).attr('readonly') === undefined){
+                            $(this).selectpicker();
+                        }
+                    });
+                    metodo(ItemReplace, accion, response, params);
+                },
+                error: function(error){ ErrorRequest(error); }
+            }
+
+            if(IdForm != '') {
+                confi['processData'] = false;
+                confi['contentType'] = false;
+            }
+            $.ajax(confi);
+        }
+}
+
+function VerificarSesion(ItemReplace, accion, response, params){
+    if(params[0] == 'tipo/1'){
+        SetDataResult(ItemReplace, accion, response);
+        return;
+    }
+    SetDataResult(ItemReplace, 4, response);
+}
+
+function ChangeRequest(ItemReplace, accion, response){
+    SetDataResult(ItemReplace, accion, response);
+    $('#SelectForm').trigger('change');
+}
+
+function AlertWait(ItemReplace, accion, response){
+
+    response += '|0|0'
+    let titulo = 'El proceso se ha realizado correctamente';
+    let respuesta = response.split('|');
+    let tituloAlerta;
+    if (respuesta[0] == 'title') {
+        tituloAlerta = respuesta[1];
+    }else{
+        tituloAlerta = (respuesta[2] != '0' ? respuesta[2] : titulo) + (respuesta[1] != '0' ? ` con código ${respuesta[1]}`  : '');
+    }
+
+    Swal.fire({
+        icon: 'success',
+        title: tituloAlerta,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#293643',
+        showConfirmButton: true,
+        }).then(() => {
+            SetDataResult(ItemReplace, accion, respuesta[0]);
+    });
+}
+
+function SetDataResult(ItemReplace, accion, response){
+    switch(accion){
+        case 0:
+            $(ItemReplace).append(response);
+            break;
+        case 1:
+            location.reload();
+            break;
+        case 2:
+            $(ItemReplace).html(response);
+            break;
+        case 3:
+            $(ItemReplace).replaceWith(response);
+            break;
+        case 4:
+            location.replace(response);
+            break;
+        case 5:
+            location.href = response;
+            break;
+    }
+}
+
+function ErrorRequest(response){
+    console.log(response);
+    Swal.close();
+    let r = jQuery.parseJSON(response.responseText);
+
+    if(r.includes('^')){
+        ShowAlert('Error', r.replace('^',''),'error');
+    }else if (r.includes('/Sesion')){
+        location.reload();
+    }
+    else{
+        ShowAlert('Error', 'Ocurrio un error al procesar la solicitud.','error');
+    }
+}
+
+function LoadingAlert(){
+    Swal.fire({
+        type: 'info',
+        html: '<span style="color:#fff;margin-bottom:10px;">Sus documentos se están cargando, por favor no cierre esta pantalla.</span><div class="col-12 loading-gif" role="status"></div>',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        padding: '0'
+    });
+    $(".swal2-modal").css('background-color', '#303745');
+}
+
+function ShowAlert(Titulo, Mensaje, Icono, showButton = true){
+    Swal.fire({
+        title: Titulo,
+        text: Mensaje,
+        icon: Icono,
+        confirmButtonColor: '#293643',
+        showConfirmButton: showButton,
+        allowOutsideClick: false,
+        toast: true,
+        confirmButtonText:'Aceptar'
+    });
+}
